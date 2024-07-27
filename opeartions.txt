@@ -1,0 +1,18 @@
+-started with HRs Registration
+-implemented Hrs Registration
+-found {bootstrap and base template implementation} and reimplementated Registration
+-implemented Log in System
+-find it useful to seperate apps for better structuring
+    - content : shows the Logged in Hr's Posted Jobs, and also allows them to Create Job
+    - users: registartion and Log In 
+    - applications: applicants can apply with job id without any sign in required.
+
+-though of creating profile section giving Hr's the update ability
+-got weird Behaviour when Hr try to update their details and after debugging 
+    found that created additional fields to user MODEL is not working so 
+    created a CustomUser MODEL and reimplementated
+-implemented Appications View so that the HR can see the applications
+-for applicants to apply to various created dynamic urls which they can do that by 
+routing to this url "apply/job_id" 
+-found performance lag and after searching for optimizations found the pagination concept for display n jobs at at page 
+rather than showing all jobs at a time

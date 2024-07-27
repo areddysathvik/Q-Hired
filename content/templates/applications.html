@@ -1,0 +1,32 @@
+{% extends "home.html" %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h2 class="mb-0">{{ job.job_title }}</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Description:</strong> {{ job.job_description }}</p>
+                <p><strong>Date Posted:</strong> {{ job.date_posted }}</p>
+                <hr>
+                <h3>Applications</h3>
+                {% if applications %}
+                {% for application in applications %}
+                    <div class="card m-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p><strong>Applicant Name:</strong> {{ application.applicant_name }}</p>
+                                    <p><strong>Applicant Email:</strong> {{ application.applicant_email }}</p>
+                                    <p>Resume: <a href="{% url 'download_resume' application.pk %}" target="_blank">Download Resume</a></p>
+
+                                </div>
+                            </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <p>No applications yet for this job.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

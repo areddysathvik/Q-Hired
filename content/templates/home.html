@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .bento-item {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container-md-expand-sm">
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: rgb(23, 162, 184);">
+        <a class="navbar-brand" href="#">Q-Hired</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% block navs %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'job-create' %}">Create new Job</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                {% endblock %}
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    {% block content %}
+        {% if not user.is_authenticated %}
+            <div class="container-md mt-4">
+                
+                <div class="bento-grid">
+                    <div class="bento-item" style="background-color:lightblue;">Easy managing jobs and applicants</div>
+                </div>
+                <div class="bento-grid">
+                    <div class="bento-item" style="background-color: blueviolet;">AI powered resume screening and filtering</div>
+                    <div class="bento-item" style="background-color: salmon;">Easy to use and go to tool for HR</div>
+                    <div class="bento-item" style="background-color:lawngreen;">Easy for applicants to apply</div>
+                </div>
+                <div class="bento-grid" >
+                    <div class="bento-item" style="background-color:crimson;">Instant feedback about applications for users</div>
+                </div>
+            </div>
+        {% else %}
+
+        <div class="container my-5">
+            {% if data %}
+            <h1 class="d-flex justify-content-center">Your Posted Jobs</h1>
+            <div class="col-">
+                {% for dt in page_obj.object_list %}
+                <div class="card m-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="card-title mb-0" style="font-weight: bold;">{{ dt.job_title }}</h5>
+                                <h5 class="card-title mb-0" style="font-weight: bold;color:blue;font-style: italic;font-weight: 300;">ID to be shared: {{ dt.job_id }}</h5>
+                            </div>
+                            <p class="font-italic mb-0" style="color: rgb(23, 162, 184);font-size: 14px; margin-top: 4px;"> Posted on {{ dt.date_posted }}</p>
+                            <hr>
+                            <p class="mt-2" style="font-style: oblique; color:gray;">{{ dt.job_description }}</p>
+                            <a href="{% url  'job_detail' dt.job_id  %}" class="btn btn-info">View Applicants</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if is_paginated %}
+        <div class="container-sm d-flex justify-content-center">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info m-1" href="?page=1">First</a>
+                <a class="btn btn-outline-info m-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <a class="btn btn-info m-1" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info m-1" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info m-1" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info m-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    {% endblock %}
+    <!-- Your content here -->
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
