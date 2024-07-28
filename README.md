@@ -26,3 +26,6 @@ Day 8
 Day 9
         <p>Found performance lag and after searching for optimizations, found the pagination concept for displaying jobs one page at a time rather than showing all jobs at once</p>
         <hr>
+Day 10
+        <p>Added The Resume Screening Logic so that we can provide instant Feedback about their initial Hiring Process</p>
+        <hr>
