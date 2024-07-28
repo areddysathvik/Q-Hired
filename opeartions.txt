@@ -16,3 +16,11 @@
 routing to this url "apply/job_id" 
 -found performance lag and after searching for optimizations found the pagination concept for display n jobs at at page 
 rather than showing all jobs at a time
+-tried 3 different ways to for resume screeing logics
+    -1. Glove
+    -2. BERT Word EMbeddings with cosiene similarity ( Average)
+    -3. SentEmbeddings with cosiene similarity
+- found the 3rd way effective and wrote logic in functions
+- found performance issues and ambiguity issues so, encapsulated everything into Classes and i am satisfied with the results
+- modified Applications Saving Logic into
+    -from directly saving to save then apply screeing logic if satisfied then do nothing else delete the applications

@@ -7,19 +7,33 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         .bento-item {
-            margin: 10px;
+            flex: 1 1 calc(33.333% - 30px);
+            min-width: calc(33.333% - 30px);
             padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
             text-align: center;
-            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+        @media (max-width: 768px) {
+            .bento-item {
+                flex: 1 1 calc(50% - 30px);
+                min-width: calc(50% - 30px);
+            }
+        }
+        @media (max-width: 576px) {
+            .bento-item {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
+        }
     </style>
 
 </head>
@@ -62,20 +76,19 @@
 
     {% block content %}
         {% if not user.is_authenticated %}
-            <div class="container-md mt-4">
-                
-                <div class="bento-grid">
-                    <div class="bento-item" style="background-color:lightblue;">Easy managing jobs and applicants</div>
-                </div>
-                <div class="bento-grid">
-                    <div class="bento-item" style="background-color: blueviolet;">AI powered resume screening and filtering</div>
-                    <div class="bento-item" style="background-color: salmon;">Easy to use and go to tool for HR</div>
-                    <div class="bento-item" style="background-color:lawngreen;">Easy for applicants to apply</div>
-                </div>
-                <div class="bento-grid" >
-                    <div class="bento-item" style="background-color:crimson;">Instant feedback about applications for users</div>
-                </div>
+        <div class="container-md" style="margin-top: 5%;">
+            <div class="bento-grid">
+                <div class="bento-item" style="background-color: rgb(172, 126, 0);">Easy managing jobs and applicants</div>
             </div>
+            <div class="bento-grid">
+                <div class="bento-item" style="background-color: blueviolet;">AI powered resume screening with custom filtering rates</div>
+                <div class="bento-item" style="background-color: salmon;">One Stop Management Tool for creating and Managing Jobs</div>
+                <div class="bento-item" style="background-color: rgb(194, 14, 134);">Applcation Process Made Simple With no SIGN UP</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-item" style="background-color: crimson;">providing Instant Application FeedBack Regarding their Resume Screening Test</div>
+            </div>
+        </div>
         {% else %}
 
         <div class="container my-5">
@@ -90,7 +103,7 @@
                                 <h5 class="card-title mb-0" style="font-weight: bold;">{{ dt.job_title }}</h5>
                                 <h5 class="card-title mb-0" style="font-weight: bold;color:blue;font-style: italic;font-weight: 300;">ID to be shared: {{ dt.job_id }}</h5>
                             </div>
-                            <p class="font-italic mb-0" style="color: rgb(23, 162, 184);font-size: 14px; margin-top: 4px;"> Posted on {{ dt.date_posted }}</p>
+                            <p class="font-italic mb-0" style="color: gray;font-size: 14px; margin-top: 4px;"> Posted on {{ dt.date_posted }}</p>
                             <hr>
                             <p class="mt-2" style="font-style: oblique; color:gray;">{{ dt.job_description }}</p>
                             <a href="{% url  'job_detail' dt.job_id  %}" class="btn btn-info">View Applicants</a>

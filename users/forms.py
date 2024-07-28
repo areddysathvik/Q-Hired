@@ -15,11 +15,7 @@ class RegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        user.company_name = self.cleaned_data['company_name']
+        user.contact_number = self.cleaned_data['contact_number']
         if commit:
             user.save()
-            CustomUser.objects.create(
-                user=user,
-                company_name=self.cleaned_data['company_name'],
-                contact_number=self.cleaned_data['contact_number']
-            )
-        return user

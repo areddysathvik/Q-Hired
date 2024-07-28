@@ -11,7 +11,6 @@ from django.views.generic import (
     DetailView
 )
 
-
 def download_resume(request, pk):
     application = get_object_or_404(Applications, pk=pk)
     if not application.resume:
@@ -37,7 +36,7 @@ class PostedDetailView(DetailView):
 class PostedListView(ListView):
     template_name = 'home.html'
     context_object_name = 'data'
-    paginate_by = 4
+    paginate_by = 3
 
     def get_queryset(self):
         user = self.request.user
@@ -52,12 +51,11 @@ class PostedListView(ListView):
                 'title': job.job_title, 
                 'desc': job.job_description,
                 'date_posted': job.date_posted,
-                'job_id':job.job_id
+                'job_id':job.job_id,
             } 
             for job in self.object_list
         ]
         return context
-
 
 class PostedCreateView(CreateView):
     template_name = 'postings_form.html'
