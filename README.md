@@ -1,3 +1,7 @@
+<h1>High Level Project Architecture</h1>
+<img src= "https://github.com/areddysathvik/Q-Hired/blob/main/preview_static/image1.jpg?raw=true" alt=""></img>
+<img src= "https://github.com/areddysathvik/Q-Hired/blob/main/preview_static/image2.jpg?raw=true" alt=""></img>
+
 <h1>Progress Notes</h1>
 Day 1-4
         <p>Started with HRs Registration</p>
